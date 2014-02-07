@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" />
+
+  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+  <script src="../vendor/assets/javascripts/bootstrap-tab-history.js"></script>
+</head>
+<body>
+<div class="container">
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a  href="#1-1"
+          data-toggle="tab"
+          data-tab-history="true"
+          data-tab-history-changer="push"
+          data-tab-history-update-url="true">
+        Tab 1:1
+      </a>
+    </li>
+    <li>
+      <a  href="#1-2"
+          data-toggle="tab"
+          data-tab-history="true"
+          data-tab-history-changer="push"
+          data-tab-history-update-url="true">
+        Tab 1:2
+      </a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="1-1">
+      Sample content for Tab 1:1.
+    </div>
+    <div class="tab-pane" id="1-2">
+      Sample content for Tab 1:2.
+    </div>
+  </div>
+</div>
+</body>
+</html>
