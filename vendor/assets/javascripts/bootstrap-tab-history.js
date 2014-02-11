@@ -262,7 +262,7 @@ BootstrapTabHistory = {
    * @returns {boolean} - true iff a tab was found to show (even if said tab was already active).
    */
   function showTabForSelector(selector) {
-    var tabElement = document.querySelector('[data-target="' + selector + '"]') || document.querySelector('[href="' +  selector + '"]');
+    var tabElement = document.querySelector('[data-tab-history][data-target="' + selector + '"]') || document.querySelector('[data-tab-history][href="' +  selector + '"]');
 
     if(tabElement) {
       jQuery(tabElement).tab('show');
