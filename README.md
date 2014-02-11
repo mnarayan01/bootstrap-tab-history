@@ -38,6 +38,9 @@ Individual elements are configured by setting the following data attributes:
 
 *   `data-tab-history` - Required. Set to `true` to enable tracking on a tab. Can also be set to an arbitrary string
     value to support pages with multiple tab groups.
+*   `data-tab-history-anchor-y-offset` - When the anchor portion of the URI is used to activate a tab, scroll down to
+    the given offset, rather than the element with the given `id` attribute. Set to null to disable. Only relevant if
+    `BootstrapTabHistory.options.showTabsBasedOnAnchor` is true.
 *   `data-tab-history-changer`
     *   'push' - Use [`history.pushState`](https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Manipulating_the_browser_history#The_pushState%28%29.C2.A0method)
         to update `history.state`. This will allow the use of `history.forward` and `history.back` as users switch
@@ -52,6 +55,9 @@ Individual elements are configured by setting the following data attributes:
 
 ```javascript
 BootstrapTabHistory.options = {
+  // Default value corresponding to the `data-tab-history-anchor-y-offset` attribute.
+  defaultAnchorYOffset: 0,
+
   // Default value corresponding to the `data-tab-history-changer` attribute.
   defaultChanger: 'replace',
 
@@ -60,12 +66,7 @@ BootstrapTabHistory.options = {
 
   // Should the anchor portion of the loaded URI be used to activate a single tab if no history was
   // present on page load.
-  showTabsBasedOnAnchor: true,
-
-  // When the anchor portion of the URI is used to activate a tab, prevent the browser from
-  // scrolling down to the element with the given `id` attribute. Only relevant if
-  // showTabsBasedOnAnchor is true.
-  showTabsBasedOnAnchorPreventScroll: true
+  showTabsBasedOnAnchor: true
 };
 ```
 
