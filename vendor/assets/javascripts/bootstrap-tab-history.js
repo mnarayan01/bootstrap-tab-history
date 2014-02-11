@@ -92,7 +92,7 @@ BootstrapTabHistory = {
 
       backfillHistoryState();
 
-      jQuery('[data-tab-history]').on('shown.bs.tab', onShownTab);
+      jQuery(document).on('shown.bs.tab', onShownTab);
       jQuery(window).on('popstate', onPopState);
     } else {
       showTabsBasedOnAnchor();
@@ -180,7 +180,7 @@ BootstrapTabHistory = {
    */
   function onShownTab(shownEvt) {
     if(!showingTabsBasedOnState) {
-      var $activatedTab = jQuery(shownEvt.currentTarget);
+      var $activatedTab = jQuery(shownEvt.target);
       var selector = getTabSelector($activatedTab);
 
       if(selector) {
@@ -262,10 +262,26 @@ BootstrapTabHistory = {
    * @returns {boolean} - true iff a tab was found to show (even if said tab was already active).
    */
   function showTabForSelector(selector) {
-    var tabElement = document.querySelector('[data-tab-history][data-target="' + selector + '"]') || document.querySelector('[data-tab-history][href="' +  selector + '"]');
+    var $tabElement = (function (selector) {
+      var $ret = null;
 
-    if(tabElement) {
-      jQuery(tabElement).tab('show');
+      jQuery('[data-toggle="tab"], [data-toggle="pill"]').each(function () {
+        var $potentialTab = jQuery(this);
+
+        if(($potentialTab.attr('href') === selector || $potentialTab.data('target') === selector) && getTabGroup($potentialTab)) {
+          $ret = $potentialTab;
+
+          return false;
+        } else {
+          return null;
+        }
+      });
+
+      return $ret;
+    })(selector);
+
+    if($tabElement) {
+      $tabElement.tab('show');
 
       return true;
     } else {
