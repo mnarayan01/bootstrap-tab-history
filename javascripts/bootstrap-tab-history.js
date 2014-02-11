@@ -40,6 +40,16 @@
 BootstrapTabHistory = {
   options: {
     /**
+     * When the anchor portion of the URI is used to activate a tab, scroll down to the given offset, rather than the
+     * element with the given `id` attribute. Set to null to disable. Only relevant if showTabsBasedOnAnchor is true.
+     *
+     * May be overriden on a per-element basis by the attribute `data-tab-history-anchor-y-offset`.
+     *
+     * @public
+     * @type {?number}
+     */
+    defaultAnchorYOffset: 0,
+    /**
      * Either 'push' or 'replace', for whether to use `history.pushState` or `history.replaceState`, resp.
      *
      * May be overriden on a per-element basis by the attribute `data-tab-history-changer`.
@@ -65,15 +75,7 @@ BootstrapTabHistory = {
      * @public
      * @type {boolean}
      */
-    showTabsBasedOnAnchor: true,
-    /**
-     * When the anchor portion of the URI is used to activate a tab, prevent the browser from scrolling down to the
-     * element with the given `id` attribute. Only relevant if showTabsBasedOnAnchor is true.
-     *
-     * @public
-     * @type {boolean}
-     */
-    showTabsBasedOnAnchorPreventScroll: true
+    showTabsBasedOnAnchor: true
   }
 };
 
@@ -92,7 +94,7 @@ BootstrapTabHistory = {
 
       backfillHistoryState();
 
-      jQuery('[data-tab-history]').on('shown.bs.tab', onShownTab);
+      jQuery(document).on('shown.bs.tab', onShownTab);
       jQuery(window).on('popstate', onPopState);
     } else {
       showTabsBasedOnAnchor();
@@ -180,7 +182,7 @@ BootstrapTabHistory = {
    */
   function onShownTab(shownEvt) {
     if(!showingTabsBasedOnState) {
-      var $activatedTab = jQuery(shownEvt.currentTarget);
+      var $activatedTab = jQuery(shownEvt.target);
       var selector = getTabSelector($activatedTab);
 
       if(selector) {
@@ -237,19 +239,30 @@ BootstrapTabHistory = {
       var anchor = window.location && window.location.hash;
 
       if(anchor) {
-        var tabShownForAnchor = showTabForSelector(anchor);
+        var $tabElement = showTabForSelector(anchor);
 
-        // HACK: This prevents scrolling to the tab on page load. This relies on the fact that we should never get here
-        //   on `history.forward`, `history.back`, or `location.reload`, since in all those situations the
-        //   `history.state` object should have been used (unless the browser did not support the modern History API).
-        if(tabShownForAnchor && BootstrapTabHistory.options.showTabsBasedOnAnchorPreventScroll && window.addEventListener && window.removeEventListener) {
-          var scrollListener = function resetAnchorScroll () {
-            window.removeEventListener('scroll', scrollListener);
-            window.scrollTo(0, 0);
-          };
+        if($tabElement && window.addEventListener && window.removeEventListener) {
+          var anchorYOffset = (function ($tabElement) {
+            var elementSetting = $tabElement.data('tab-history-anchor-y-offset');
 
-          window.addEventListener('scroll', scrollListener);
-          window.setTimeout(function () { window.removeEventListener('scroll', scrollListener); }, 1000);
+            if(elementSetting === undefined) {
+              return BootstrapTabHistory.options.defaultAnchorYOffset;
+            } else {
+              return elementSetting;
+            }
+          })($tabElement);
+
+          // HACK: This prevents scrolling to the tab on page load. This relies on the fact that we should never get
+          //   here on `history.forward`, `history.back`, or `location.reload`, since in all those situations the
+          //   `history.state` object should have been used (unless the browser did not support the modern History API).
+          if(anchorYOffset || anchorYOffset === 0) {
+            var scrollListener = function resetAnchorScroll () {
+              window.removeEventListener('scroll', scrollListener);
+              window.scrollTo(0, anchorYOffset);
+            };
+
+            window.addEventListener('scroll', scrollListener);
+          }
         }
       }
     }
@@ -259,18 +272,32 @@ BootstrapTabHistory = {
    * Show a tab which corresponds to the provided selector.
    *
    * @param {string} selector - A CSS selector.
-   * @returns {boolean} - true iff a tab was found to show (even if said tab was already active).
+   * @returns {?jQuery} - The tab which was found to show (even if said tab was already active).
    */
   function showTabForSelector(selector) {
-    var tabElement = document.querySelector('[data-tab-history][data-target="' + selector + '"]') || document.querySelector('[data-tab-history][href="' +  selector + '"]');
+    var $tabElement = (function (selector) {
+      var $ret = null;
 
-    if(tabElement) {
-      jQuery(tabElement).tab('show');
+      jQuery('[data-toggle="tab"], [data-toggle="pill"]').each(function () {
+        var $potentialTab = jQuery(this);
 
-      return true;
-    } else {
-      return false;
+        if(($potentialTab.attr('href') === selector || $potentialTab.data('target') === selector) && getTabGroup($potentialTab)) {
+          $ret = $potentialTab;
+
+          return false;
+        } else {
+          return null;
+        }
+      });
+
+      return $ret;
+    })(selector);
+
+    if($tabElement) {
+      $tabElement.tab('show');
     }
+
+    return $tabElement;
   }
 
   /**
