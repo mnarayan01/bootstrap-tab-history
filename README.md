@@ -8,6 +8,8 @@ with [`bootstrap/tab.js`](http://getbootstrap.com/javascript/#tabs). This enable
 To enable tracking on a tab element, simply set the `data-tab-history` attribute to `true` (or a string denoting a tab
 grouping).
 
+Visit our [GitHub Page](http://mnarayan01.github.io/bootstrap-tab-history/) to see it in action.
+
 Installation
 ------------
 
