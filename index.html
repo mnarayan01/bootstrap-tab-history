@@ -1,61 +1,304 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Bootstrap-tab-history : Use the HTML5 History API with bootstrap/tab." />
+<head>
+  <meta charset='utf-8' />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <meta name="description" content="Bootstrap-tab-history : Use the HTML5 History API with bootstrap/tab." />
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" />
 
-    <title>Bootstrap-tab-history</title>
-  </head>
+  <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+  <script src="javascripts/bootstrap-tab-history.js"></script>
+  <script src="javascripts/main.js"></script>
 
-  <body>
+  <title>bootstrap-tab-history</title>
+</head>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/mnarayan01/bootstrap-tab-history">View on GitHub</a>
+<body>
 
-          <h1 id="project_title">Bootstrap-tab-history</h1>
-          <h2 id="project_tagline">Use the HTML5 History API with bootstrap/tab.</h2>
+<!-- HEADER -->
+<div id="header_wrap" class="outer">
+  <header class="inner">
+    <a id="forkme_banner" href="https://github.com/mnarayan01/bootstrap-tab-history">View on GitHub</a>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/mnarayan01/bootstrap-tab-history/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/mnarayan01/bootstrap-tab-history/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
+    <h1 id="project_title">bootstrap-tab-history</h1>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>
-<a name="bootstrap-tab-history" class="anchor" href="#bootstrap-tab-history"><span class="octicon octicon-link"></span></a>Bootstrap Tab History</h3>
+    <h2 id="project_tagline">Use the HTML5 History API with bootstrap/tab.</h2>
 
-<p>Integrates <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Manipulating_the_browser_history">HTML5 history state tracking</a> with <a href="http://getbootstrap.com/javascript/#tabs"><code>bootstrap/tab.js</code></a>.</p>
+    <section id="downloads">
+      <a class="zip_download_link" href="https://github.com/mnarayan01/bootstrap-tab-history/zipball/master">Download
+        this project as a .zip file</a>
+      <a class="tar_download_link" href="https://github.com/mnarayan01/bootstrap-tab-history/tarball/master">Download
+        this project as a tar.gz file</a>
+    </section>
+  </header>
+</div>
 
-<p>Allows users to use the browser's history functions when navigating through the tabs on your website. In particular, users can:</p>
+<!-- MAIN CONTENT -->
+<div id="main_content_wrap" class="outer">
+  <section id="main_content" class="inner">
+    <h3>
+      <a name="bootstrap-tab-history" class="anchor" href="#bootstrap-tab-history"><span
+              class="octicon octicon-link"></span></a>Bootstrap Tab History</h3>
 
-<ul>
-<li>  Use <code>history.back</code>.</li>
-<li>  Use <code>history.forward</code>.</li>
-<li>  Use <code>location.reload</code>.</li>
-<li>  Bookmark specific tabs.</li>
-</ul>
+    <p>Integrates <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Manipulating_the_browser_history">HTML5
+      history state tracking</a> with <a
+            href="http://getbootstrap.com/javascript/#tabs"><code>bootstrap/tab.js</code></a>.</p>
+
+    <p>Allows users to use the browser's history functions when navigating through the tabs on your website. In
+      particular, users can:</p>
+
+    <ul>
+      <li> Use <code>history.back</code>.</li>
+      <li> Use <code>history.forward</code>.</li>
+      <li> Use <code>location.reload</code>.</li>
+      <li> Bookmark specific tabs.</li>
+    </ul>
+  </section>
+
+  <section class="inner">
+    <h3>Demo</h3>
+
+    <p>
+      Sample content. Use the browser <code>Back</code>, <code>Forward</code>, and <code>Reload</code> buttons to test.
+      Also try opening the link-anchors in a new window <a href="#2-3" target="_blank">like so</a>, noting the tab is
+      automatically switched to.
+    </p>
+
+    <section class="inner">
+      <h4>
+        With <code>history.pushState</code>
+      </h4>
+
+      <p>
+        The following tabs have <code>data-tab-history-changer="push"</code>, and thus are navigable via <code>Back</code>
+        and <code>Forward</code>.
+      </p>
+
+      <section class="inner">
+        <h5>Tab group 1</h5>
+
+        <div>
+          <ul class="nav nav-tabs">
+            <li class="active">
+              <a  href="#1-1"
+                  data-toggle="tab"
+                  data-tab-history="group1"
+                  data-tab-history-changer="push"
+                  data-tab-history-update-url="true">
+                Tab 1:1
+              </a>
+            </li>
+            <li>
+              <a  href="#1-2"
+                  data-toggle="tab"
+                  data-tab-history="group1"
+                  data-tab-history-changer="push"
+                  data-tab-history-update-url="true">
+                Tab 1:2
+              </a>
+            </li>
+            <li>
+              <a  href="#1-3"
+                  data-toggle="tab"
+                  data-tab-history="group1"
+                  data-tab-history-changer="push"
+                  data-tab-history-update-url="true">
+                Tab 1:3
+              </a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="1-1">
+              <h6>Tab 1:1</h6>
+              <p class="lorem-ipsum">Lorem ipsum</p>
+            </div>
+            <div class="tab-pane" id="1-2">
+              <h6>Tab 1:2</h6>
+              <p class="lorem-ipsum">Lorem ipsum</p>
+            </div>
+            <div class="tab-pane" id="1-3">
+              <h6>Tab 1:3</h6>
+              <p class="lorem-ipsum">Lorem ipsum</p>
+            </div>
+          </div>
+        </div>
       </section>
-    </div>
+      <section class="inner">
+        <h5>Tab group 2</h5>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Bootstrap-tab-history maintained by <a href="https://github.com/mnarayan01">mnarayan01</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
+        <div>
+          <ul class="nav nav-tabs">
+            <li class="active">
+              <a  href="#2-1"
+                  data-toggle="tab"
+                  data-tab-history="group2"
+                  data-tab-history-changer="push"
+                  data-tab-history-update-url="true">
+                Tab 2:1
+              </a>
+            </li>
+            <li>
+              <a  href="#2-2"
+                  data-toggle="tab"
+                  data-tab-history="group2"
+                  data-tab-history-changer="push"
+                  data-tab-history-update-url="true">
+                Tab 2:2
+              </a>
+            </li>
+            <li>
+              <a  href="#2-3"
+                  data-toggle="tab"
+                  data-tab-history="group2"
+                  data-tab-history-changer="push"
+                  data-tab-history-update-url="true">
+                Tab 2:3
+              </a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="2-1">
+              <h6>Tab 2:1</h6>
+              <p class="lorem-ipsum">Lorem ipsum</p>
+            </div>
+            <div class="tab-pane" id="2-2">
+              <h6>Tab 2:2</h6>
+              <p class="lorem-ipsum">Lorem ipsum</p>
+            </div>
+            <div class="tab-pane" id="2-3">
+              <h6>Tab 2:3</h6>
+              <p class="lorem-ipsum">Lorem ipsum</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
 
-    
+    <section class="inner">
+      <h4>
+        With <code>history.replaceState</code>
+      </h4>
 
-  </body>
+      <p>
+        The following tabs have <code>data-tab-history-changer="replace"</code>, and thus navigation does <i>not</i>
+        affect <code>Back</code> and <code>Forward</code>, but only <code>Reload</code>.
+      </p>
+
+      <section class="inner">
+        <h5>Tab group 3</h5>
+
+        <div>
+          <ul class="nav nav-tabs">
+            <li class="active">
+              <a  href="#3-1"
+                  data-toggle="tab"
+                  data-tab-history="group3"
+                  data-tab-history-changer="replace"
+                  data-tab-history-update-url="false">
+                Tab 3:1
+              </a>
+            </li>
+            <li>
+              <a  href="#3-2"
+                  data-toggle="tab"
+                  data-tab-history="group3"
+                  data-tab-history-changer="replace"
+                  data-tab-history-update-url="false">
+                Tab 3:2
+              </a>
+            </li>
+            <li>
+              <a  href="#3-3"
+                  data-toggle="tab"
+                  data-tab-history="group3"
+                  data-tab-history-changer="replace"
+                  data-tab-history-update-url="false">
+                Tab 3:3
+              </a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="3-1">
+              <h6>Tab 3:1</h6>
+              <p class="lorem-ipsum">Lorem ipsum</p>
+            </div>
+            <div class="tab-pane" id="3-2">
+              <h6>Tab 3:2</h6>
+              <p class="lorem-ipsum">Lorem ipsum</p>
+            </div>
+            <div class="tab-pane" id="3-3">
+              <h6>Tab 3:3</h6>
+              <p class="lorem-ipsum">Lorem ipsum</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="inner">
+        <h5>Tab group 2</h5>
+
+        <div>
+          <ul class="nav nav-tabs">
+            <li class="active">
+              <a  href="#4-1"
+                  data-toggle="tab"
+                  data-tab-history="group4"
+                  data-tab-history-changer="replace"
+                  data-tab-history-update-url="false">
+                Tab 4:1
+              </a>
+            </li>
+            <li>
+              <a  href="#4-2"
+                  data-toggle="tab"
+                  data-tab-history="group4"
+                  data-tab-history-changer="replace"
+                  data-tab-history-update-url="false">
+                Tab 4:2
+              </a>
+            </li>
+            <li>
+              <a  href="#4-3"
+                  data-toggle="tab"
+                  data-tab-history="group4"
+                  data-tab-history-changer="replace"
+                  data-tab-history-update-url="false">
+                Tab 4:3
+              </a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="4-1">
+              <h6>Tab 4:1</h6>
+              <p class="lorem-ipsum">Lorem ipsum</p>
+            </div>
+            <div class="tab-pane" id="4-2">
+              <h6>Tab 4:2</h6>
+              <p class="lorem-ipsum">Lorem ipsum</p>
+            </div>
+            <div class="tab-pane" id="4-3">
+              <h6>Tab 4:3</h6>
+              <p class="lorem-ipsum">Lorem ipsum</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+  </section>
+</div>
+
+<!-- FOOTER  -->
+<div id="footer_wrap" class="outer">
+  <footer class="inner">
+    <p class="copyright">bootstrap-tab-history maintained by <a href="https://github.com/mnarayan01">mnarayan01</a></p>
+
+    <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+  </footer>
+</div>
+
+
+</body>
 </html>
