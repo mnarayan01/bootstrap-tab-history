@@ -158,13 +158,7 @@ BootstrapTabHistory = {
    * @returns {?string}
    */
   function getTabGroup($tab) {
-    var rawTabGroup = $tab.data('tab-history');
-
-    if(rawTabGroup === true || rawTabGroup === '') {
-      return 'true';
-    } else {
-      return rawTabGroup || null;
-    }
+    return parseTruthyAttributeValue($tab.data('tab-history'));
   }
 
   /**
@@ -193,7 +187,7 @@ BootstrapTabHistory = {
           var newState = createNewHistoryState(history.state, tabGroup, selector);
           var updateURL = (function ($activatedTab) {
             if(selector[0] === '#') {
-              var elementUpdateURLOption = $activatedTab.data('tab-history-update-url');
+              var elementUpdateURLOption = parseTruthyAttributeValue($activatedTab.data('tab-history-update-url'));
 
               if(elementUpdateURLOption === undefined) {
                 return BootstrapTabHistory.options.defaultUpdateURL;
@@ -228,6 +222,24 @@ BootstrapTabHistory = {
 
     if(bootstrapTabHistory) {
       showTabsBasedOnState(bootstrapTabHistory);
+    }
+  }
+
+  /**
+   * Returns the given value, _unless_ that value is an empty string, in which case `true` is returned.
+   *
+   * Rationale: HAML data attributes which are set to `true` are rendered as a blank string.
+   *
+   * @param {*} value
+   * @returns {*}
+   */
+  function parseTruthyAttributeValue(value) {
+    if(value) {
+      return value;
+    } else if(value === '') {
+      return true;
+    } else {
+      return value;
     }
   }
 

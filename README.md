@@ -53,6 +53,9 @@ Individual elements are configured by setting the following data attributes:
 *   `data-tab-history-update-url` - If `true`, update the URL in the calls to `history.pushState` and
     `history.replaceState`. When `false`, `null` is passed as the third parameter to these calls.
 
+For data attributes which are interpreted as "truthy" values (i.e. `data-tab-history` and
+`data-tab-history-update-url`), an empty string is treated as equivalent to `true`.
+
 ### Global options
 
 ```javascript
